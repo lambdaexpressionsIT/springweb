@@ -1,0 +1,7 @@
+pages:
+  welcomePage: welcome.html
+  afterPost: afterpost.html
+
+server:
+  port: 10080
+
