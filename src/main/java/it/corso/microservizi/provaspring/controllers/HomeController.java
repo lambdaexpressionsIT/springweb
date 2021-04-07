@@ -2,13 +2,11 @@ package it.corso.microservizi.provaspring.controllers;
 
 import it.corso.microservizi.provaspring.constants.Paths;
 import it.corso.microservizi.provaspring.data.FormDTO;
+import it.corso.microservizi.provaspring.exceptions.MyNotFoundException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 
@@ -45,5 +43,11 @@ public class HomeController {
         model.addAttribute("b", data.getB());
         return afterPost;
     }
+
+    @RequestMapping("/eccezione")
+    public String eccezione() {
+        throw new MyNotFoundException();
+    }
+
 
 }
