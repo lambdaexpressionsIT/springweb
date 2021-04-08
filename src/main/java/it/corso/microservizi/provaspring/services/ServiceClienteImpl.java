@@ -2,10 +2,13 @@ package it.corso.microservizi.provaspring.services;
 
 import it.corso.microservizi.provaspring.data.ClienteDTO;
 import it.corso.microservizi.provaspring.entities.Cliente;
+import it.corso.microservizi.provaspring.data.RisultatoAggregatoDTO;
+import it.corso.microservizi.provaspring.data.RisultatoAggregatoAttributiDTO;
 import it.corso.microservizi.provaspring.exceptions.MyNotFoundException;
 import it.corso.microservizi.provaspring.repositories.RepositoryCliente;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,6 +56,34 @@ public class ServiceClienteImpl implements ServiceCliente {
     public List<ClienteDTO> cercaClientePerStessaCittaFornitore(String citta) {
         Iterable<Cliente> clienti = repositoryCliente.findClienteFornitoreStessaCitta(citta);
         return convertiClienti(clienti);
+    }
+
+    @Override
+    public List<RisultatoAggregatoDTO> sommaOrdinePerCliente() {
+        List<RisultatoAggregatoDTO> res = new ArrayList<>();
+        for(RisultatoAggregatoDTO r: repositoryCliente.sommaOrdinePerCliente()) {
+            res.add(r);
+        }
+        return res;
+
+    }
+
+    @Override
+    public List<RisultatoAggregatoDTO> sommaOrdineMinimoPerCliente(BigDecimal minOrdine) {
+        List<RisultatoAggregatoDTO> res = new ArrayList<>();
+        for(RisultatoAggregatoDTO r: repositoryCliente.sommaOrdineMinimoPerCliente(minOrdine)) {
+            res.add(r);
+        }
+        return res;
+    }
+
+    @Override
+    public List<RisultatoAggregatoAttributiDTO> datiSingoli() {
+        List<RisultatoAggregatoAttributiDTO> res = new ArrayList<>();
+        for(RisultatoAggregatoAttributiDTO r: repositoryCliente.datiSingoli()) {
+            res.add(r);
+        }
+        return res;
     }
 
     private List<ClienteDTO> convertiClienti(Iterable<Cliente> clienti) {

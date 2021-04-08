@@ -3,6 +3,7 @@ package it.corso.microservizi.provaspring.controllers;
 import it.corso.microservizi.provaspring.data.ClienteDTO;
 import it.corso.microservizi.provaspring.data.ErrorDTO;
 import it.corso.microservizi.provaspring.data.FormDTO;
+import it.corso.microservizi.provaspring.data.RisultatoAggregatoDTO;
 import it.corso.microservizi.provaspring.exceptions.MyNotFoundException;
 import it.corso.microservizi.provaspring.services.ServiceCliente;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -41,6 +43,12 @@ public class RestController {
     @RequestMapping("/clientiPerCitta/{citta}")
     public ResponseEntity<List<ClienteDTO>> clienti(@PathVariable String citta) {
         List<ClienteDTO> clienti = serviceCliente.cercaClientePerCitta(citta);
+        return new ResponseEntity<>(clienti, HttpStatus.OK);
+    }
+
+    @RequestMapping("/sommaOrdinePerCliente")
+    public ResponseEntity<?> sommaOrdinePerCliente() {
+        List<RisultatoAggregatoDTO> clienti = new ArrayList<>(serviceCliente.sommaOrdinePerCliente());
         return new ResponseEntity<>(clienti, HttpStatus.OK);
     }
 
